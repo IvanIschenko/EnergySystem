@@ -1,13 +1,24 @@
+import java.util.List;
+import java.util.ArrayList;
 
 public class Switcher {
 
-    public ElectricityConsumer consumer;
+    private List<ElectricityConsumer> listeners =
+            new ArrayList<>();
+
+    public void addElectricityListener(ElectricityConsumer listener) {
+        listeners.add(listener);
+    }
+
+
+    public void removeElectricityListener(ElectricityConsumer listener) {
+        listeners.remove(listener);
+    }
 
     public void switchOn() {
         System.out.println("The Switcher is on!");
-
-        if (consumer != null) {
-            consumer.electricityOn();
+        for (ElectricityConsumer c: listeners) {
+            c.electricityOn();
         }
     }
 
